@@ -8,13 +8,13 @@ from app.crud import expense
 router = APIRouter(prefix="/expenses", tags=["Expenses"])
 
 # ADD (bulk)
-@router.post("")
+@router.post("/")
 async def add_expenses(payload: ExpenseBulkCreate, db: AsyncSession = Depends(get_db)):
     count = await expense.create_expenses(db, payload.items)
     return {"message": f"{count} expenses added"}
 
 # GET (dynamic date / month)
-@router.get("")
+@router.get("/")
 async def fetch_expenses(
     start_date: date = Query(...),
     end_date: date = Query(...),
