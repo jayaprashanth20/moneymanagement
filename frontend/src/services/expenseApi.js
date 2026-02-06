@@ -30,7 +30,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://127.0.0.1:8000",
+  baseURL: "https://moneymanagement-aguu.onrender.com",
 });
 
 export const expenseApi = {
