@@ -1,7 +1,18 @@
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker, declarative_base
 
-DATABASE_URL = "postgresql+asyncpg://postgres:1234@localhost:5432/money_tracker"
+import os
+from dotenv import load_dotenv
+
+load_dotenv()  # 👈 VERY IMPORTANT
+
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+if not DATABASE_URL:
+    raise ValueError("DATABASE_URL is not set")
+
+
+
 
 engine = create_async_engine(DATABASE_URL, echo=False)
 
@@ -14,3 +25,4 @@ Base = declarative_base()
 async def get_db():
     async with AsyncSessionLocal() as session:
         yield session
+
